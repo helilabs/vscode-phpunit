@@ -1,0 +1,58 @@
+{
+	"name": "vscode-phpunit",
+	"displayName": "VSCode phpunit",
+	"description": "Run individual unit test files directly from VSCode",
+	"version": "1.0.0",
+	"publisher": "Mohammed",
+	"engines": {
+		"vscode": "^1.20.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"repository": {
+		"url": "https://github.com/helilabs/vscode-phpunit"
+	},
+	"activationEvents": [
+		"onCommand:vscode-phpunit.run",
+		"onCommand:vscode-phpunit.run_single",
+		"onCommand:vscode-phpunit.run_tests_in_dir",
+		"onCommand:vscode-phpunit.run_all_tests"
+	],
+	"main": "./extension",
+	"contributes": {
+		"commands": [
+			{
+				"command": "vscode-phpunit.run",
+				"title": "vscode phpinit: Run Current Test Method"
+			},
+			{
+				"command": "vscode-phpunit.run_single",
+				"title": "vscode phpinit: Run Current Test"
+			},
+			{
+				"command": "vscode-phpunit.run_tests_in_dir",
+				"title": "vscode phpinit: Run All Tests In Current Dir"
+			},
+			{
+				"command": "vscode-phpunit.run_all_tests",
+				"title": "vscode phpinit: Run All Tests(Full TestSuit)"
+			}
+		]
+	},
+	"scripts": {
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"@types/mocha": "^2.2.42",
+		"@types/node": "^7.0.54",
+		"eslint": "^4.6.1",
+		"typescript": "^2.6.1",
+		"vscode": "^1.1.6"
+	},
+	"dependencies": {
+		"find-up": "^2.1.0",
+		"node-osascript": "*"
+	}
+}
