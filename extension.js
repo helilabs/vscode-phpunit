@@ -35,7 +35,7 @@ exports.deactivate = deactivate;
 
 async function runCommand(command){
 	await runTerminalCommand(`clear`);
-	await runTerminalCommand(`cd ${command.subDirectory} && ${command.output}`);
+	await runTerminalCommand(`${command.output}`);
 }
 
 function runTerminalCommand(code){
