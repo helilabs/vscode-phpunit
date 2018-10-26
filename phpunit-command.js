@@ -17,19 +17,29 @@ module.exports = class PhpUnitCommand {
 		}
 
 		if (this.runFullSuite){
-			this.lastOutput = `${this.binary}`;
+			this.lastOutput = `${this.prefix}${this.binary}${this.suffix}`;
 		}else if(this.runCurrentDirectory){
-			this.lastOutput = `${this.binary} ${this.directory}`;
+			this.lastOutput = `${this.prefix}${this.binary} ${this.directory}${this.suffix}`;
 		}else if(this.runCurrentFile){
-			this.lastOutput = `${this.binary} ${this.file}`;
+			this.lastOutput = `${this.prefix}${this.binary} ${this.file}${this.suffix}`;
 		}else{
-			this.lastOutput = `${this.binary} ${this.file} ${this.filter}`;
+			this.lastOutput = `${this.prefix}${this.binary} ${this.file} ${this.filter}${this.suffix}`;
 		}
+
+		if(vscode.workspace.getConfiguration('missionx.vscode-phpunit').get('cdIntoDirectory')){
+			this.lastOutput = `cd ${this.subDirectory} && ${this.lastOutput}`;
+		}
+
 		return this.lastOutput;
 	}
 
 	get file() {
-		return this._normalizePath(vscode.window.activeTextEditor.document.fileName);
+		if (vscode.workspace
+        .getConfiguration("missionx.vscode-phpunit")
+        .get("filePath") === 'absolute'){
+			return this._normalizePath(vscode.window.activeTextEditor.document.fileName);
+		}
+		return this._normalizePath(vscode.workspace.asRelativePath(vscode.window.activeTextEditor.document.fileName));
 	}
 
 	get filter() {
@@ -48,14 +58,20 @@ module.exports = class PhpUnitCommand {
 	}
 
 	get suffix() {
-		let suffix = vscode.workspace.getConfiguration('better-phpunit').get('commandSuffix');
+		let suffix = vscode.workspace.getConfiguration('missionx.vscode-phpunit').get('commandSuffix');
 
-		return suffix ? ' ' + suffix : ''; // Add a space before the suffix.
+		return suffix ? suffix : ''; // Add a space before the suffix.
+	}
+
+	get prefix() {
+		let prefix = vscode.workspace.getConfiguration('missionx.vscode-phpunit').get('commandPrefix');
+
+		return prefix ? prefix : ''; // Add a space before the suffix.
 	}
 
 	get binary() {
-		if (vscode.workspace.getConfiguration('better-phpunit').get('phpunitBinary')) {
-			return vscode.workspace.getConfiguration('better-phpunit').get('phpunitBinary')
+		if (vscode.workspace.getConfiguration('missionx.vscode-phpunit').get('phpunitBinary')) {
+			return vscode.workspace.getConfiguration('missionx.vscode-phpunit').get('phpunitBinary')
 		}
 
 		return this.subDirectory
