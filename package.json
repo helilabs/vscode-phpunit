@@ -2,7 +2,7 @@
 	"name": "vscode-phpunit",
 	"displayName": "VSCode phpunit",
 	"description": "Run individual unit test files directly from VSCode",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"publisher": "Mohammed",
 	"engines": {
 		"vscode": "^1.20.0"
@@ -38,7 +38,42 @@
 				"command": "vscode-phpunit.run_all_tests",
 				"title": "vscode phpinit: Run All Tests(Full TestSuit)"
 			}
-		]
+		],
+		"configuration": {
+			"type": "object",
+			"title": "phpunit Command configuration",
+			"properties": {
+				"missionx.vscode-phpunit.phpunitBinary": {
+					"type": "string",
+					"default": "",
+					"description": "define the path to the phpunit binary, default to empty and it will use the binary from your vendor file. This is also used to define your command entry point."
+				},
+				"missionx.vscode-phpunit.commandPrefix": {
+					"type": "string",
+					"default": "",
+					"description": "define a prefix to be added before the command, default to empty"
+				},
+				"missionx.vscode-phpunit.commandSuffix": {
+					"type": "string",
+					"default": "",
+					"description": "define a suffix to be added after the command, default to empty"
+				},
+				"missionx.vscode-phpunit.filePath": {
+					"type": "string",
+					"default": "absolute",
+					"enum": [
+						"absolute",
+						"relative"
+					],
+					"description": "whether to user absolute file path or relative file path, default to absolute, available options: absolute|relative."
+				},
+				"missionx.vscode-phpunit.cdIntoDirectory": {
+					"type": "boolean",
+					"default": true,
+					"description": "whether or not to cd into your project directory before executing the command."
+				}
+			}
+		}
 	},
 	"scripts": {
 		"postinstall": "node ./node_modules/vscode/bin/install",
