@@ -27,3 +27,6 @@ Make sure to open iterm before running any tests.
 1. `vscode-phpunit.run_single`: Run Current Test File
 1. `vscode-phpunit.run_tests_in_dir`: Run All Tests In Current Dir
 1. `vscode-phpunit.run_all_tests`: Run All Tests(Full TestSuit)
+
+## Contributors:
+- Mohammed Manssour [website](https://mohammedmanssour.me) | [@ManssourMhd](https://twitter.com/ManssourMhd)
